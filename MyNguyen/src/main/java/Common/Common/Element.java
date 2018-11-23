@@ -1,6 +1,8 @@
 package Common.Common;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementNotVisibleException;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -18,12 +20,17 @@ public class Element {
 		wait.until(ExpectedConditions.visibilityOfElementLocated(by));
 	}
 
-	public Boolean isElementPresent(By by) {
+	public Boolean isElementDisplayed(By by) {
 		try {
-			findElement(by);
-			return true;
-		} catch (Exception e) {
+			WebElement element = findElement(by);
+			boolean display = element.isDisplayed();
+			return display;
+		} catch (NoSuchElementException e) {
+			return false;
+		} catch (ElementNotVisibleException e) {
 			return false;
 		}
+
 	}
+
 }

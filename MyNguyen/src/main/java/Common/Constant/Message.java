@@ -6,4 +6,5 @@ public class Message {
 	public static final String emptyValueMsgLogin = "There was a problem with your login and/or errors exist in your form.";
 	public static final String lockMsgLogin = "You have used 4 out of 5 login attempts. After all 5 have been used, you will be unable to login for 15 minutes.";
 	public static final String thanksMsgRegister = "Thank you for registering your account";
+	public static final String existMsgEmail = "This email address is already in use.";
 }

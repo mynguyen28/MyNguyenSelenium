@@ -1,24 +1,23 @@
 package Railway;
 
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
 
 import Common.Common.Utilities;
 import Common.Constant.Constant;
-import PageObjects.Railway.LoginPage;
+import PageObjects.Railway.HomePage;
 
 public class BasicTest {
-	
-	private LoginPage loginPage = new LoginPage();
+	private HomePage homePage = new HomePage();
 
-	@BeforeMethod
-	protected void beforeMethod() {
+	@BeforeClass
+	protected void beforeClass() {
 		Utilities.openBrowser();
+		homePage.open();
 	}
-	
-	@AfterMethod
-	protected void afterMethod() {
-		loginPage.logOut();
+
+	@AfterClass
+	protected void afterClass() {
 		Constant.WEBDRIVER.quit();
 	}
 
