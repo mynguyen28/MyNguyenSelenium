@@ -1,33 +1,39 @@
 package PageObjects.Railway;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import Common.Common.Element;
 import Common.Constant.Constant;
 
-public class GeneralPage extends Element{
+public class GeneralPage extends Element {
 
 	private String tabName = "//div[@id='menu']//span[normalize-space()='%s']";
 	private String welcomeMsg = "//div[@class='account' and normalize-space()='Welcome %s']";
 	private String selectedTab = "//li[@class= 'selected']//span[normalize-space()='%s']";
+	private final By headerPage = By.xpath("//h1[@align='center']");
 
-	// Element
-	public String getPageLocator(String pagename) {
-		return this.tabName = String.format(this.tabName, pagename);
+	// Elements
+	public By getPageLocator(String pagename) {
+		this.tabName = String.format(this.tabName, pagename);
+		By tabname = By.xpath(tabName);
+		return tabname;
 	}
 
 	protected WebElement getPage(String pagename) {
-		return xpathElement(getPageLocator(pagename));
-	}
-
-	protected WebElement getWelcomeMsg() {
-		this.welcomeMsg = String.format(this.welcomeMsg, Constant.USERNAME);
-		return xpathElement(this.welcomeMsg);
+		return findElement(getPageLocator(pagename));
 	}
 
 	protected WebElement getSelectedPage(String pagename) {
 
 		this.selectedTab = String.format(this.selectedTab, pagename);
-		return xpathElement(this.selectedTab);
+		By selectedtab = By.xpath(selectedTab);
+		return findElement(selectedtab);
+	}
+
+	protected WebElement getWelcomeMsg() {
+		this.welcomeMsg = String.format(this.welcomeMsg, Constant.USERNAME);
+		By welmsg = By.xpath(welcomeMsg);
+		return findElement(welmsg);
 	}
 
 	// Methods
@@ -36,7 +42,7 @@ public class GeneralPage extends Element{
 	}
 
 	public Boolean isPageSelected(String tabname) {
-		return getSelectedPage(tabname).isDisplayed();           
+		return getSelectedPage(tabname).isDisplayed();
 	}
 
 	public Boolean isWelcomeMsgDisplayed() {
@@ -44,25 +50,19 @@ public class GeneralPage extends Element{
 	}
 
 	public void logOut() {
-		if (isElementPresent("xpath", getPageLocator("Log out")) == true) 
-		{
+		if (isElementPresent(getPageLocator("Log out")) == true) {
 			gotoPage("Log out");
 		} else
 			System.out.println("Not logout");
-
 	}
 
 	public Boolean isPageDisplayed(String pagename) {
 		return getPage(pagename).isDisplayed();
 	}
 
-	public Boolean isElementPresent(String type, String locator) {
-		try {
-			Constant.WEBDRIVER.findElement(getLocator(type, locator));
-			return true;
-		} catch (Exception e) {
-			return false;
-		}
+	public String getHeaderPage(String pagename)
+	{
+		return findElement(headerPage).getText();
 	}
 
 }

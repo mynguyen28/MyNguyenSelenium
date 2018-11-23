@@ -2,39 +2,28 @@ package Common.Common;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import Common.Constant.Constant;
 
 public class Element {
 
-	public static By getLocator(String type, String locator) {
-		By str = null;
-		switch (type) {
-		case "xpath":
-			str = By.xpath(locator);
-			break;
+	public static WebElement findElement(By by) {
+		return Constant.WEBDRIVER.findElement(by);
+	}
 
-		case "id":
-			str = By.id(locator);
-			break;
+	public static void waitForElementIsVisible(By by, int timout) {
+		WebDriverWait wait = new WebDriverWait(Constant.WEBDRIVER, timout);
+		wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+	}
 
-		case "name":
-			str = By.name(locator);
-			break;
+	public Boolean isElementPresent(By by) {
+		try {
+			findElement(by);
+			return true;
+		} catch (Exception e) {
+			return false;
 		}
-		return str;
 	}
-
-	public static WebElement xpathElement(String xpath) {
-		return Constant.WEBDRIVER.findElement(getLocator("xpath", xpath));
-	}
-
-	public static WebElement idElement(String id) {
-		return Constant.WEBDRIVER.findElement(getLocator("id", id));
-	}
-
-	public static WebElement nameElement(String name) {
-		return Constant.WEBDRIVER.findElement(getLocator("name", name));
-	}
-
 }
