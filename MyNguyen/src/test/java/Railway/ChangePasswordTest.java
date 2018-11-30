@@ -2,27 +2,55 @@ package Railway;
 
 import static org.testng.Assert.assertEquals;
 
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-
-import Common.Common.Utilities;
 import Common.Constant.Message;
+import Common.Common.Utilities;
 import Common.Constant.Constant;
 import Common.Constant.Constant.PageName;
+import PageObjects.Railway.ChangePasswordPage;
 import PageObjects.Railway.HomePage;
 import PageObjects.Railway.LoginPage;
 import PageObjects.Railway.RegisterPage;
 
-public class ChangePasswordTest extends BasicTest{
+public class ChangePasswordTest extends BasicTest {
 
-	private String passport = Utilities.generateNumber(9);
-
-	@Test(description = "TC09 - User can't change password when New Password and Confirm Password are different.")
-	public void TC09() {
-		loginPage.login(Constant.USERNAME, Constant.PASSWORD);
-		loginPage.gotoPage(PageName.CHANGEPASSWORD);
-		
-		
+	@BeforeMethod
+	public void beforeMethod() {
+		homePage.gotoPage(PageName.LOGIN);
 	}
+
+	@AfterMethod
+	public void afterMethod() {
+
+		loginPage.logOut();
+	}
+
+	@Test(description = "TC09 - User can change password")
+	public void TC09() {
+		loginPage.gotoPage(PageName.REGISTER);
+		String email = Utilities.generateEmail();
+		registerPage.register(email, Constant.PASSWORD);
+//		Utilities.activeAccountByEmail(Utilities.splitEmail(email));
+
+		registerPage.gotoPage(PageName.LOGIN);
+		loginPage.login(email, Constant.PASSWORD);
+		loginPage.gotoPage(PageName.CHANGEPASSWORD);
+		changePasswordPage.changePassword(Constant.PASSWORD, Constant.NEW_PASSWORD);
+		assertEquals(changePasswordPage.getSuccessMessageChangePassword(), Message.SUCCESS_CHANGE_PASSWORD_MESSAGE);
+	}
+
+//	@Test(description = "TC00 - User can't change password when New Password and Confirm Password are different.")
+//	public void TC00() {
+//		loginPage.login(Constant.USERNAME, Constant.PASSWORD);
+//		loginPage.gotoPage(PageName.CHANGEPASSWORD);
+//		changePasswordPage.changePassword(Constant.PASSWORD, Constant.NEW_PASSWORD, Constant.NEW_PASSWORD+2);
+//		assertEquals(changePasswordPage.getErrorMessage(), Message.FAILED_CHANGE_PASSWORD_MESSAGE);
+//	}
+
+	private HomePage homePage = new HomePage();
 	private LoginPage loginPage = new LoginPage();
+	private ChangePasswordPage changePasswordPage = new ChangePasswordPage();
 	private RegisterPage registerPage = new RegisterPage();
 }

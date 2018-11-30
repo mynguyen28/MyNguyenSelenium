@@ -6,64 +6,73 @@ import Common.Common.Element;
 import Common.Constant.Constant;
 import Common.Constant.Constant.PageName;
 
-public class GeneralPage extends Element {
+public class GeneralPage {
 
 	private String tabName = "//div[@id='menu']//span[normalize-space()='%s']";
-	private String welcomeMsg = "//div[@class='account' and normalize-space()='Welcome %s']";
+	private String welcomeMsg = "//div[@class='account' and normalize-space()='%s']";
 	private String selectedTab = "//li[@class= 'selected']//span[normalize-space()='%s']";
-	private final By lblheaderPage = By.xpath("//h1[@align='center']");
+	private By lblheaderPage = By.xpath("//h1[@align='center']");
+	private By msgError = By.xpath("//p[@class='message error']");
+	private By lblErrorValidation = By.xpath("//label[@class='validation-error']");
 
 	// Elements
-	public By getPageLocator(String pagename) {
-		String str = String.format(this.tabName, pagename);
-		By tabname = By.xpath(str);
-		return tabname;
+	public By getPageLocator(String pageName) {
+		String str = String.format(this.tabName, pageName);
+		By tabName = By.xpath(str);
+		return tabName;
 	}
 
-	protected WebElement getPage(String pagename) {
-		return findElement(getPageLocator(pagename));
+	protected WebElement getPage(String pageName) {
+		return Element.findElement(getPageLocator(pageName));
 	}
 
-	protected By getSelectedPage(String pagename) {
+	protected By getSelectedPage(String pageName) {
 
-		String str = String.format(this.selectedTab, pagename);
-		By selectedtab = By.xpath(str);
-		return selectedtab;
+		String str = String.format(this.selectedTab, pageName);
+		By selectedTab = By.xpath(str);
+		return selectedTab;
 	}
 
-	protected By getWelcomeMsg() {
-		this.welcomeMsg = String.format(this.welcomeMsg, Constant.USERNAME);
-		By welmsg = By.xpath(welcomeMsg);
-		return welmsg;
+	protected By getWelcomeMsg(String userName) {
+		String str = String.format(this.welcomeMsg, "Welcome "+userName);
+		By welcomeMsg = By.xpath(str);
+		return welcomeMsg;
 	}
 
 	// Methods
-	public void gotoPage(PageName pagename) {
-		getPage(pagename.getValue()).click();
+	public String getErrorMessage() {
+		return Element.getText(msgError);
 	}
 
-	public Boolean isPageSelected(PageName pagename) {
-		return isElementDisplayed(getSelectedPage(pagename.getValue()));
+	public void gotoPage(PageName pageName) {
+		getPage(pageName.getValue()).click();
 	}
 
-	public Boolean isWelcomeMsgDisplayed() {
-		return isElementDisplayed(getWelcomeMsg());
+	public Boolean isPageSelected(PageName pageName) {
+		return Element.isElementDisplayed(getSelectedPage(pageName.getValue()));
 	}
 
-	public Boolean isPageDisplayed(PageName pagename)
-	{
-		return isElementDisplayed(getPageLocator(pagename.getValue()));
+	public Boolean isWelcomeMsgDisplayed(String userName) {
+		return Element.isElementDisplayed(getWelcomeMsg(userName));
 	}
+
+	public Boolean isPageDisplayed(PageName pageName) {
+		return Element.isElementDisplayed(getPageLocator(pageName.getValue()));
+	}
+
 	public void logOut() {
-		if (isElementDisplayed(getPageLocator(PageName.LOGOUT.getValue())) == true) {
+		if (Element.isElementDisplayed(getPageLocator(PageName.LOGOUT.getValue())) == true) {
 			gotoPage(PageName.LOGOUT);
 		} else
 			System.out.println("Not logout");
 	}
 
-	public String getHeaderPage(String pagename)
-	{
-		return findElement(lblheaderPage).getText();
+	public String getHeaderPage() {
+		return Element.getText(lblheaderPage);
 	}
 
+	public String getErrorValidation()
+	{
+		return Element.getText(lblErrorValidation);
+	}
 }

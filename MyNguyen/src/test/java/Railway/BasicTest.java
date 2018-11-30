@@ -5,20 +5,18 @@ import org.testng.annotations.BeforeClass;
 
 import Common.Common.Utilities;
 import Common.Constant.Constant;
-import PageObjects.Railway.HomePage;
+import Common.Constant.Constant.Browser;
 
 public class BasicTest {
-	private HomePage homePage = new HomePage();
 
 	@BeforeClass
 	protected void beforeClass() {
-		Utilities.openBrowser();
-		homePage.open();
+		Utilities.openRailWay(Browser.CHROME);
 	}
 
 	@AfterClass
 	protected void afterClass() {
-		Constant.WEBDRIVER.quit();
+//		Constant.WEBDRIVER.quit();
 	}
 
 }

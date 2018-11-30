@@ -5,44 +5,49 @@ import static org.testng.Assert.assertEquals;
 import org.testng.annotations.Test;
 
 import Common.Common.Utilities;
-import Common.Constant.Constant;
 import Common.Constant.Message;
+import Common.Constant.Constant;
 import Common.Constant.Constant.PageName;
-import PageObjects.Railway.HomePage;
+import PageObjects.Railway.EmailSystemPage;
 import PageObjects.Railway.LoginPage;
 import PageObjects.Railway.RegisterPage;
 
 public class RegisterTest extends BasicTest {
 
-	private String passwordRegister = Utilities.generateAlphanumeric(8);
-	private String passport = Utilities.generateNumber(9);
+	@Test(description = "TC07 - User can create new account")
+	public void TC07() {
+		loginPage.gotoPage(PageName.REGISTER);
+		String email = Utilities.generateEmail();
+		registerPage.register(email, Constant.PASSWORD);
+		assertEquals(registerPage.getHeaderPage(), Message.SUCCESS_REGISTER_MESSAGE);
+		emailSystemPage.activeAccountByEmail(email);
+	}
 
-//	@Test(description = "TC07 - User can create new account")
-//	public void TC07() {
-//		loginPage.gotoPage(PageName.REGISTER);
-//		registerPage.register(Utilities.generateEmail(6), passwordRegister, passwordRegister, passport);
-//		assertEquals(registerPage.getHeaderPage("Register"), Message.thanksMsgRegister);
-//	}
-//
-//	@Test(description = "TC08 - User can't login with an account hasn't been activated")
-//	public void TC08() {
-//		//pre-conditon: Create a new account but do not activate it
-//		loginPage.gotoPage(PageName.REGISTER);
-//		registerPage.register(Utilities.generateEmail(6), passwordRegister, passwordRegister, passport);
-//		
-//		//Testcase:
-//		registerPage.gotoPage(PageName.LOGIN);
-//		loginPage.login(Utilities.generateEmail(6), passwordRegister);
-//		assertEquals(loginPage.getLoginError(), Message.invalidMsgLogin);
-//	}
-//	
+	@Test(description = "TC00 - User can't create account with Confirm password is not the same with Password")
+	public void TC00() {
+		loginPage.gotoPage(PageName.REGISTER);
+		registerPage.register(Utilities.generateEmail(), Constant.PASSWORD, Constant.PASSWORD + 1);
+		assertEquals(registerPage.getErrorMessage(), Message.FAILED_REGISTER_MESSAGE);
+	}
+
 	@Test(description = "TC10 - User can't create account with an already in-use email")
 	public void TC10() {
 		loginPage.gotoPage(PageName.REGISTER);
-		registerPage.register(Constant.USERNAME, Constant.PASSWORD, Constant.PASSWORD, passport);
-		assertEquals(loginPage.getLoginError(), Message.existMsgEmail);
+		registerPage.register(Constant.USERNAME, Constant.PASSWORD);
+		assertEquals(registerPage.getErrorMessage(), Message.USED_EMAIL_MESSAGE);
 	}
+
+	@Test(description = "TC11 - User can't create account while password and PID fields are empty")
+	public void TC11() {
+		loginPage.gotoPage(PageName.REGISTER);
+		registerPage.register(Constant.USERNAME, "");
+		assertEquals(registerPage.getErrorMessage(), Message.ERROR_REGISTER_MESSAGE);
+		assertEquals(registerPage.getErrorValidation(), Message.INVALID_PASSWORD_REGISTER_MESSAGE);
+		assertEquals(registerPage.getErrorValidation(), Message.INVALID_ID_LENGTH_REGISTER_MESSAGE);
+	}
+
 	private LoginPage loginPage = new LoginPage();
 	private RegisterPage registerPage = new RegisterPage();
+	private EmailSystemPage emailSystemPage = new EmailSystemPage();
 
 }
