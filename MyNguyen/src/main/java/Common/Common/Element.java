@@ -23,7 +23,7 @@ public class Element {
 
 	public static Boolean isElementDisplayed(By locator) {
 		try {
-			WebElement element = findElement(locator);
+			WebElement element = Constant.WEBDRIVER.findElement(locator);
 			boolean display = element.isDisplayed();
 			return display;
 		} catch (NoSuchElementException e) {
@@ -43,12 +43,12 @@ public class Element {
 		findElement(locator).click();
 	}
 
+	public static void clear(By locator)
+	{
+		findElement(locator).clear();
+	}
 	public static String getText(By locator) {
 		return findElement(locator).getText();
-	}
-
-	public static void clear(By locator) {
-		findElement(locator).clear();
 	}
 
 	public static void selectInList(By locator, String value) {

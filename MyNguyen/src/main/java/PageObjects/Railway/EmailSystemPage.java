@@ -4,7 +4,6 @@ import org.openqa.selenium.By;
 
 import Common.Common.Element;
 import Common.Common.Utilities;
-import Common.Common.Webdriver;
 import Common.Constant.Constant;
 
 public class EmailSystemPage {
@@ -17,12 +16,12 @@ public class EmailSystemPage {
 	private String getUrlMail(String email) {
 		return String.format(Constant.MAIL_SYSTEM_URL, Utilities.getPreEmail(email));
 	}
-	
-	private void confirmByEmail(String email,By link) {
-		Webdriver.navigateTo(getUrlMail(email));
+
+	private void confirmByEmail(String email, By link) {
+		Constant.WEBDRIVER.navigate().to(getUrlMail(email));
 		Element.click(mailBox);
-		Webdriver.switchTo().frame(iframeMailMessage);
-		Webdriver.navigateTo(Element.getText(link));
+		Constant.WEBDRIVER.switchTo().frame(iframeMailMessage);
+		Constant.WEBDRIVER.navigate().to(Element.getText(link));
 	}
 
 	public void activeAccountByEmail(String email) {

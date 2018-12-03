@@ -3,7 +3,6 @@ package PageObjects.Railway;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import Common.Common.Element;
-import Common.Constant.Constant;
 import Common.Constant.Constant.PageName;
 
 public class GeneralPage {
@@ -17,9 +16,8 @@ public class GeneralPage {
 
 	// Elements
 	public By getPageLocator(String pageName) {
-		String str = String.format(this.tabName, pageName);
-		By tabName = By.xpath(str);
-		return tabName;
+		String str = String.format(this.tabName, pageName); ;
+		return (By) By.xpath(str);
 	}
 
 	protected WebElement getPage(String pageName) {
@@ -29,14 +27,12 @@ public class GeneralPage {
 	protected By getSelectedPage(String pageName) {
 
 		String str = String.format(this.selectedTab, pageName);
-		By selectedTab = By.xpath(str);
-		return selectedTab;
+		return (By) By.xpath(str);
 	}
 
 	protected By getWelcomeMsg(String userName) {
 		String str = String.format(this.welcomeMsg, "Welcome "+userName);
-		By welcomeMsg = By.xpath(str);
-		return welcomeMsg;
+		return (By) By.xpath(str);
 	}
 
 	// Methods
