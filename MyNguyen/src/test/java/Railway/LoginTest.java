@@ -5,6 +5,7 @@ import static org.testng.Assert.assertTrue;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import Common.Common.Utilities;
 import Common.Constant.Constant;
@@ -62,13 +63,14 @@ public class LoginTest extends BasicTest {
 	@Test(description = "TC06 - Additional pages display once user logged in")
 	public void TC06() throws InterruptedException {
 		loginPage.login(Constant.USERNAME, Constant.PASSWORD);
-		assertTrue(homePage.isPageDisplayed(PageName.MYTICKET), "my ticket tab");
-		assertTrue(homePage.isPageDisplayed(PageName.CHANGEPASSWORD), "change tab");
-		assertTrue(homePage.isPageDisplayed(PageName.LOGOUT), "logout tab");
+		SoftAssert softAssert = new SoftAssert();
+		softAssert.assertTrue(homePage.isPageDisplayed(PageName.MYTICKET), "my ticket tab");
+		softAssert.assertTrue(homePage.isPageDisplayed(PageName.CHANGEPASSWORD), "change tab");
+		softAssert.assertTrue(homePage.isPageDisplayed(PageName.LOGOUT), "logout tab");
 		homePage.gotoPage(PageName.CHANGEPASSWORD);
-		assertTrue(homePage.isPageSelected(PageName.CHANGEPASSWORD), "change selected");
+		softAssert.assertTrue(homePage.isPageSelected(PageName.CHANGEPASSWORD), "change selected");
 		loginPage.gotoPage(PageName.MYTICKET);
-		assertTrue(homePage.isPageSelected(PageName.MYTICKET), "my ticket selected");
+		softAssert.assertTrue(homePage.isPageSelected(PageName.MYTICKET), "my ticket selected");
 	}
 
 	@Test(description = "TC08 - User can't login with an account hasn't been activated")

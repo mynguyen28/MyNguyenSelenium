@@ -37,7 +37,7 @@ public class ChangePasswordTest extends BasicTest {
 		registerPage.gotoPage(PageName.LOGIN);
 		loginPage.login(email, Constant.PASSWORD);
 		loginPage.gotoPage(PageName.CHANGEPASSWORD);
-		changePasswordPage.changePassword(Constant.PASSWORD, Constant.NEW_PASSWORD);
+//		changePasswordPage.changePassword(Constant.PASSWORD, Constant.NEW_PASSWORD);
 		assertEquals(changePasswordPage.getSuccessMessageChangePassword(), Message.SUCCESS_CHANGE_PASSWORD_MESSAGE);
 	}
 

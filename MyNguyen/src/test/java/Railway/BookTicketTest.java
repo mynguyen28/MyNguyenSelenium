@@ -4,14 +4,16 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
+import Common.Common.FileReaderManager;
 import Common.Constant.Constant;
 import Common.Constant.Constant.PageName;
 import Common.Constant.Message;
+import DataObjects.Ticket;
 import PageObjects.Railway.BookTicketPage;
 import PageObjects.Railway.HomePage;
 import PageObjects.Railway.LoginPage;
-import PageObjects.Railway.RegisterPage;
 
 public class BookTicketTest extends BasicTest {
 
@@ -23,14 +25,15 @@ public class BookTicketTest extends BasicTest {
 		homePage.gotoPage(PageName.LOGIN);
 		loginPage.login(Constant.USERNAME, Constant.PASSWORD);
 		homePage.gotoPage(PageName.BOOKTICKET);
-		bookTicketPage.bookTicket("12/9/2018", SAIGON, NHATRANG, SOFT_BED_AIR_CONDITIONER,"1");
-		assertEquals(bookTicketPage.getHeaderPage(), Message.SUCCESS_BOOK_TICKET);
-		assertTrue(bookTicketPage.isBookedTicketDisplayed("12/9/2018", SAIGON, NHATRANG,SOFT_BED_AIR_CONDITIONER, "1"));
+		Ticket ticket = FileReaderManager.getInstance().getJsonReader().getTicketInfo();
+		bookTicketPage.bookTicket(ticket);
+		SoftAssert softAssert = new SoftAssert();
+		softAssert.assertEquals(bookTicketPage.getHeaderPage(), Message.SUCCESS_BOOK_TICKET);
+		softAssert.assertTrue(bookTicketPage.isBookedTicketDisplayed());
 	}
 
 	private HomePage homePage = new HomePage();
 	private LoginPage loginPage = new LoginPage();
-	private RegisterPage registerPage = new RegisterPage();
 	private BookTicketPage bookTicketPage = new BookTicketPage();
 
 }

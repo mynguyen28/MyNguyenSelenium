@@ -3,6 +3,7 @@ package Railway;
 import static org.testng.Assert.assertEquals;
 
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 
 import Common.Common.Utilities;
 import Common.Constant.Message;
@@ -41,9 +42,10 @@ public class RegisterTest extends BasicTest {
 	public void TC11() {
 		loginPage.gotoPage(PageName.REGISTER);
 		registerPage.register(Constant.USERNAME, "");
-		assertEquals(registerPage.getErrorMessage(), Message.ERROR_REGISTER_MESSAGE);
-		assertEquals(registerPage.getErrorValidation(), Message.INVALID_PASSWORD_REGISTER_MESSAGE);
-		assertEquals(registerPage.getErrorValidation(), Message.INVALID_ID_LENGTH_REGISTER_MESSAGE);
+		SoftAssert softAssert = new SoftAssert();
+		softAssert.assertEquals(registerPage.getErrorMessage(), Message.ERROR_REGISTER_MESSAGE);
+		softAssert.assertEquals(registerPage.getErrorValidation(), Message.INVALID_PASSWORD_REGISTER_MESSAGE);
+		softAssert.assertEquals(registerPage.getErrorValidation(), Message.INVALID_ID_LENGTH_REGISTER_MESSAGE);
 	}
 
 	private LoginPage loginPage = new LoginPage();
