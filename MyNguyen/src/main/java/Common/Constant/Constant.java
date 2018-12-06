@@ -19,7 +19,7 @@ public class Constant {
 
 	public static enum PageName {
 		HOMEPAGE("Home"), LOGIN("Login"), LOGOUT("Log out"), REGISTER("Register"), MYTICKET(
-				"My ticket"), CHANGEPASSWORD("Change password"), BOOKTICKET("Book ticket");
+				"My ticket"), CHANGEPASSWORD("Change password"), BOOKTICKET("Book ticket"), TIMETABLE("Timetable");
 
 		private final String value;
 
