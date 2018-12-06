@@ -1,8 +1,5 @@
 package Railway;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
-
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
@@ -19,9 +16,6 @@ public class BookTicketTest extends BasicTest {
 
 	@Test(description = "TC14 - User can book 1 ticket at a time")
 	public void TC14() {
-		// pre-condition: Create and activate a new account
-
-		// Step
 		homePage.gotoPage(PageName.LOGIN);
 		loginPage.login(Constant.USERNAME, Constant.PASSWORD);
 		homePage.gotoPage(PageName.BOOKTICKET);
@@ -29,7 +23,7 @@ public class BookTicketTest extends BasicTest {
 		bookTicketPage.bookTicket(ticket);
 		SoftAssert softAssert = new SoftAssert();
 		softAssert.assertEquals(bookTicketPage.getHeaderPage(), Message.SUCCESS_BOOK_TICKET);
-		softAssert.assertTrue(bookTicketPage.isBookedTicketDisplayed());
+		softAssert.assertTrue(bookTicketPage.isBookedTicketDisplayed(ticket));
 	}
 
 	private HomePage homePage = new HomePage();

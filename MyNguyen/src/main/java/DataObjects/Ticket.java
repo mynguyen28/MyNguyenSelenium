@@ -5,7 +5,7 @@ public class Ticket {
 	private String departFrom;
 	private String departArrive;
 	private String typeSeat;
-	private String ticketAmount;
+	private int ticketAmount;
 
 	public String getTypeSeat() {
 		return typeSeat;
@@ -15,11 +15,11 @@ public class Ticket {
 		this.typeSeat = typeSeat;
 	}
 
-	public String getTicketAmount() {
+	public int getTicketAmount() {
 		return ticketAmount;
 	}
 
-	public void setTicketAmount(String ticketAmount) {
+	public void setTicketAmount(int ticketAmount) {
 		this.ticketAmount = ticketAmount;
 	}
 

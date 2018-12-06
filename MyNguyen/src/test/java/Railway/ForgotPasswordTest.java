@@ -1,8 +1,5 @@
 package Railway;
 
-import static org.testng.Assert.assertEquals;
-import static org.testng.Assert.assertTrue;
-
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -67,7 +64,7 @@ public class ForgotPasswordTest extends BasicTest{
 		emailSystemPage.resetPasswordByEmail(email);
 		//
 		softAssert.assertTrue(forgotPasswordPage.isForgotPasswordFormDisplayed());
-//		forgotPasswordPage.resetPassword(Constant.NEW_PASSWORD, Constant.NEW_PASSWORD+1);
+		forgotPasswordPage.resetPassword(Constant.NEW_PASSWORD, Constant.NEW_PASSWORD+1);
 		softAssert.assertEquals(forgotPasswordPage.getErrorMessage(), Message.ERROR_RESET_PASSWORD_MESSAGE);
 		softAssert.assertEquals(forgotPasswordPage.getErrorValidation(), Message.NOT_MATCH_RESET_PASSWORD_MESSAGE);
 	}

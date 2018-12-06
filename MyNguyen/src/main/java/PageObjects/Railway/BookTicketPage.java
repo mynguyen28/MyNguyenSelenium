@@ -1,10 +1,7 @@
 package PageObjects.Railway;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-
 import Common.Common.Element;
-import Common.Common.Utilities;
 import DataObjects.Ticket;
 
 public class BookTicketPage extends GeneralPage {
@@ -23,7 +20,7 @@ public class BookTicketPage extends GeneralPage {
 		Element.selectInList(cbbDepartFrom, ticket.getDepartFrom());
 		Element.selectInList(cbbArriveAt, ticket.getDepartArrive());
 		Element.selectInList(cbbSeatType, ticket.getTypeSeat());
-		Element.selectInList(cbbTicketAmount,ticket.getTicketAmount());
+		Element.selectInList(cbbTicketAmount,String.valueOf(ticket.getTicketAmount()));
 		Element.click(btnBookTicket);
 
 	}
@@ -36,11 +33,14 @@ public class BookTicketPage extends GeneralPage {
 
 	public Boolean isBookedTicketDisplayed(Ticket ticket) {
 		
-		getValueBookedTicketColumn("Depart Station", ticket.getDepartFrom());
-		getValueBookedTicketColumn("Arrive Station", ticket.getDepartArrive());
-		getValueBookedTicketColumn("Seat Type", ticket.getTypeSeat());
-		getValueBookedTicketColumn("Depart Date", ticket.getDepartDate());
-		getValueBookedTicketColumn("Amount", ticket.getTicketAmount());
+		String[] columnList = new String [] {"Depart Station","Arrive Station","Seat Type","Depart Date","Amount"};
+		String[] values = new String[] {ticket.getDepartFrom(),ticket.getDepartArrive(),ticket.getTypeSeat(),ticket.getDepartDate(),String.valueOf(ticket.getTicketAmount())};
+		Boolean result = null;
+		for (int i = 0; i < columnList.length; i++) {
+			result=getValueBookedTicketColumn(columnList[i], values[i]);
+			if(result==false) break;
+		}
+		return result;
 		
 	}
 

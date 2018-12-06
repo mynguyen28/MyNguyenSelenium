@@ -1,5 +1,7 @@
 package Common.Common;
 
+import java.util.Random;
+
 import Common.Constant.Constant;
 import Common.Constant.Constant.Browser;
 
@@ -24,4 +26,9 @@ public class Utilities {
 		return email.substring(0, email.length() - 15);
 	}
 
+	public static long randomNumbers()
+	{
+		Random rand = new Random(); 
+		return rand.nextInt(999999999); 
+	}
 }
