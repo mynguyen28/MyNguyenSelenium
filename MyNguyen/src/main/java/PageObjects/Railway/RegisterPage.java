@@ -27,8 +27,7 @@ public class RegisterPage extends GeneralPage {
 		register(email, password, password);
 	}
 
-	public String getRegistrationConfirmedMessage()
-	{
+	public String getRegistrationConfirmedMessage() {
 		return Element.getText(lblRegistrationConfirmed);
 	}
 }

@@ -10,6 +10,7 @@ import Common.Common.Utilities;
 import Common.Constant.Constant;
 import Common.Constant.Constant.PageName;
 import PageObjects.Railway.ChangePasswordPage;
+import PageObjects.Railway.EmailSystemPage;
 import PageObjects.Railway.HomePage;
 import PageObjects.Railway.LoginPage;
 import PageObjects.Railway.RegisterPage;
@@ -32,25 +33,18 @@ public class ChangePasswordTest extends BasicTest {
 		loginPage.gotoPage(PageName.REGISTER);
 		String email = Utilities.generateEmail();
 		registerPage.register(email, Constant.PASSWORD);
-//		Utilities.activeAccountByEmail(Utilities.splitEmail(email));
+		emailSystemPage.activeAccountByEmail(email);
 
 		registerPage.gotoPage(PageName.LOGIN);
 		loginPage.login(email, Constant.PASSWORD);
 		loginPage.gotoPage(PageName.CHANGEPASSWORD);
-//		changePasswordPage.changePassword(Constant.PASSWORD, Constant.NEW_PASSWORD);
+		changePasswordPage.changePassword(Constant.PASSWORD, Constant.NEW_PASSWORD);
 		assertEquals(changePasswordPage.getSuccessMessageChangePassword(), Message.SUCCESS_CHANGE_PASSWORD_MESSAGE);
 	}
-
-//	@Test(description = "TC00 - User can't change password when New Password and Confirm Password are different.")
-//	public void TC00() {
-//		loginPage.login(Constant.USERNAME, Constant.PASSWORD);
-//		loginPage.gotoPage(PageName.CHANGEPASSWORD);
-//		changePasswordPage.changePassword(Constant.PASSWORD, Constant.NEW_PASSWORD, Constant.NEW_PASSWORD+2);
-//		assertEquals(changePasswordPage.getErrorMessage(), Message.FAILED_CHANGE_PASSWORD_MESSAGE);
-//	}
 
 	private HomePage homePage = new HomePage();
 	private LoginPage loginPage = new LoginPage();
 	private ChangePasswordPage changePasswordPage = new ChangePasswordPage();
 	private RegisterPage registerPage = new RegisterPage();
+	private EmailSystemPage emailSystemPage = new EmailSystemPage();
 }

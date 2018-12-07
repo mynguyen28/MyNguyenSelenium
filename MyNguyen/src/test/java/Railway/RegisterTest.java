@@ -3,12 +3,11 @@ package Railway;
 import static org.testng.Assert.assertEquals;
 
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
 import Common.Common.Utilities;
-import Common.Constant.Message;
 import Common.Constant.Constant;
 import Common.Constant.Constant.PageName;
+import Common.Constant.Message;
 import PageObjects.Railway.EmailSystemPage;
 import PageObjects.Railway.LoginPage;
 import PageObjects.Railway.RegisterPage;
@@ -24,13 +23,6 @@ public class RegisterTest extends BasicTest {
 		emailSystemPage.activeAccountByEmail(email);
 	}
 
-	@Test(description = "TC00 - User can't create account with Confirm password is not the same with Password")
-	public void TC00() {
-		loginPage.gotoPage(PageName.REGISTER);
-		registerPage.register(Utilities.generateEmail(), Constant.PASSWORD, Constant.PASSWORD + 1);
-		assertEquals(registerPage.getErrorMessage(), Message.FAILED_REGISTER_MESSAGE);
-	}
-
 	@Test(description = "TC10 - User can't create account with an already in-use email")
 	public void TC10() {
 		loginPage.gotoPage(PageName.REGISTER);
@@ -42,10 +34,9 @@ public class RegisterTest extends BasicTest {
 	public void TC11() {
 		loginPage.gotoPage(PageName.REGISTER);
 		registerPage.register(Constant.USERNAME, "");
-		SoftAssert softAssert = new SoftAssert();
-		softAssert.assertEquals(registerPage.getErrorMessage(), Message.ERROR_REGISTER_MESSAGE);
-		softAssert.assertEquals(registerPage.getErrorValidation(), Message.INVALID_PASSWORD_REGISTER_MESSAGE);
-		softAssert.assertEquals(registerPage.getErrorValidation(), Message.INVALID_ID_LENGTH_REGISTER_MESSAGE);
+		assertEquals(registerPage.getErrorMessage(), Message.ERROR_REGISTER_MESSAGE);
+		assertEquals(registerPage.getErrorValidation(), Message.INVALID_PASSWORD_REGISTER_MESSAGE);
+		assertEquals(registerPage.getErrorValidation(), Message.INVALID_ID_LENGTH_REGISTER_MESSAGE);
 	}
 
 	private LoginPage loginPage = new LoginPage();

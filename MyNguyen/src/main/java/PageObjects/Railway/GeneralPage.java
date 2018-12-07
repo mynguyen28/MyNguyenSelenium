@@ -16,7 +16,8 @@ public class GeneralPage {
 
 	// Elements
 	public By getPageLocator(String pageName) {
-		String str = String.format(this.tabName, pageName); ;
+		String str = String.format(this.tabName, pageName);
+		;
 		return (By) By.xpath(str);
 	}
 
@@ -31,7 +32,7 @@ public class GeneralPage {
 	}
 
 	protected By getWelcomeMsg(String userName) {
-		String str = String.format(this.welcomeMsg, "Welcome "+userName);
+		String str = String.format(this.welcomeMsg, "Welcome " + userName);
 		return (By) By.xpath(str);
 	}
 
@@ -67,8 +68,7 @@ public class GeneralPage {
 		return Element.getText(lblheaderPage);
 	}
 
-	public String getErrorValidation()
-	{
+	public String getErrorValidation() {
 		return Element.getText(lblErrorValidation);
 	}
 }

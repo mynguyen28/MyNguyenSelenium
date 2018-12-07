@@ -21,6 +21,10 @@ public class Element {
 		(new WebDriverWait(Constant.WEBDRIVER, timout)).until(ExpectedConditions.visibilityOfElementLocated(locator));
 	}
 
+	public static void waitForElementIsPresent(By locator, int timout) {
+		(new WebDriverWait(Constant.WEBDRIVER, timout)).until(ExpectedConditions.presenceOfElementLocated(locator));
+	}
+
 	public static Boolean isElementDisplayed(By locator) {
 		try {
 			WebElement element = Constant.WEBDRIVER.findElement(locator);
@@ -43,17 +47,24 @@ public class Element {
 		findElement(locator).click();
 	}
 
-	public static void clear(By locator)
-	{
+	public static void clear(By locator) {
 		findElement(locator).clear();
 	}
+
 	public static String getText(By locator) {
 		return findElement(locator).getText();
 	}
 
 	public static void selectInList(By locator, String value) {
+		Element.click(locator);
+		waitForElementIsPresent(locator, Constant.SHORT_TIME);
 		Select drp = new Select(Element.findElement(locator));
 		drp.selectByVisibleText(value);
+	}
+
+	public static int countElements(By locator) {
+		java.util.List<WebElement> allElements = Constant.WEBDRIVER.findElements(locator);
+		return allElements.size();
 	}
 
 }

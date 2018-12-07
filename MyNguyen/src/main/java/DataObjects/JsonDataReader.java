@@ -6,6 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.util.Arrays;
+import java.util.List;
 
 import com.google.gson.Gson;
 import Common.Common.FileReaderManager;
@@ -16,24 +18,25 @@ public class JsonDataReader {
 
 	private final String ticketFilePath = Utilities.getProjectPath()
 			+ FileReaderManager.getInstance().getConfigReader().getTestDataResourcePath() + "ticket.json";
-	private Ticket ticket;
 
-	public JsonDataReader() {
-		ticket = getTicketInfo();
+	private List<Ticket> ticketList;
+
+	public JsonDataReader() throws UnsupportedEncodingException {
+		ticketList = getTicketInfo();
 	}
 
-	public Ticket getTicketInfo() {
+	public List<Ticket> getTicketInfo() {
 		Gson gson = new Gson();
 		BufferedReader bufferReader = null;
 		try {
 			try {
-				bufferReader = new BufferedReader(new InputStreamReader(new FileInputStream(ticketFilePath),"UTF-8"));
+				bufferReader = new BufferedReader(new InputStreamReader(new FileInputStream(ticketFilePath), "UTF-8"));
 			} catch (UnsupportedEncodingException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			ticket = gson.fromJson(bufferReader, Ticket.class);
-			return ticket;
+			Ticket[] tickets = gson.fromJson(bufferReader, Ticket[].class);
+			return Arrays.asList(tickets);
 		} catch (FileNotFoundException e) {
 			throw new RuntimeException("Json file not found at path : " + ticketFilePath);
 		} finally {
@@ -43,6 +46,14 @@ public class JsonDataReader {
 			} catch (IOException ignore) {
 			}
 		}
+	}
+
+	public final Ticket getTicketByDepartStation(String departStation) {
+		for (Ticket ticket : ticketList) {
+			if (ticket.getDepartFrom().equalsIgnoreCase(departStation))
+				return ticket;
+		}
+		return null;
 	}
 
 }

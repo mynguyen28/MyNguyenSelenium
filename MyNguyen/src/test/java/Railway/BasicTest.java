@@ -16,7 +16,7 @@ public class BasicTest {
 
 	@AfterClass
 	protected void afterClass() {
-//		Constant.WEBDRIVER.quit();
+		 Constant.WEBDRIVER.quit();
 	}
 
 }

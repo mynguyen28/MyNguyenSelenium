@@ -1,9 +1,11 @@
 package Railway;
 
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
+
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 
 import Common.Common.Utilities;
 import Common.Constant.Constant;
@@ -15,7 +17,7 @@ import PageObjects.Railway.HomePage;
 import PageObjects.Railway.LoginPage;
 import PageObjects.Railway.RegisterPage;
 
-public class ForgotPasswordTest extends BasicTest{
+public class ForgotPasswordTest extends BasicTest {
 
 	@BeforeMethod
 	public void beforeMethod() {
@@ -41,10 +43,10 @@ public class ForgotPasswordTest extends BasicTest{
 		loginPage.gotoForgotPasswordPage();
 		forgotPasswordPage.resetInstructionsPassword(email);
 		emailSystemPage.resetPasswordByEmail(email);
-		softAssert.assertTrue(forgotPasswordPage.isForgotPasswordFormDisplayed());
+		assertTrue(forgotPasswordPage.isForgotPasswordFormDisplayed());
 		forgotPasswordPage.resetPasswordWithClearToken(Constant.PASSWORD);
-		softAssert.assertEquals(forgotPasswordPage.getErrorMessage(), Message.FAILED_RESET_PASSWORD_MESSAGE);
-		softAssert.assertEquals(forgotPasswordPage.getErrorValidation(), Message.EMPTY_RESET_TOKEN_MESSAGE);
+		assertEquals(forgotPasswordPage.getErrorMessage(), Message.FAILED_RESET_PASSWORD_MESSAGE);
+		assertEquals(forgotPasswordPage.getErrorValidation(), Message.EMPTY_RESET_TOKEN_MESSAGE);
 	}
 
 	@Test(description = "TC13 - Errors display if password and confirm password don't match when resetting password")
@@ -59,14 +61,12 @@ public class ForgotPasswordTest extends BasicTest{
 		loginPage.gotoPage(PageName.LOGIN);
 		loginPage.gotoForgotPasswordPage();
 		forgotPasswordPage.resetInstructionsPassword(email);
-		
-		//
 		emailSystemPage.resetPasswordByEmail(email);
-		//
-		softAssert.assertTrue(forgotPasswordPage.isForgotPasswordFormDisplayed());
-		forgotPasswordPage.resetPassword(Constant.NEW_PASSWORD, Constant.NEW_PASSWORD+1);
-		softAssert.assertEquals(forgotPasswordPage.getErrorMessage(), Message.ERROR_RESET_PASSWORD_MESSAGE);
-		softAssert.assertEquals(forgotPasswordPage.getErrorValidation(), Message.NOT_MATCH_RESET_PASSWORD_MESSAGE);
+
+		assertTrue(forgotPasswordPage.isForgotPasswordFormDisplayed());
+		forgotPasswordPage.resetPassword(Constant.NEW_PASSWORD, Constant.NEW_PASSWORD + 1);
+		assertEquals(forgotPasswordPage.getErrorMessage(), Message.ERROR_RESET_PASSWORD_MESSAGE);
+		assertEquals(forgotPasswordPage.getErrorValidation(), Message.NOT_MATCH_RESET_PASSWORD_MESSAGE);
 	}
 
 	private HomePage homePage = new HomePage();
@@ -74,5 +74,4 @@ public class ForgotPasswordTest extends BasicTest{
 	private ForgotPasswordPage forgotPasswordPage = new ForgotPasswordPage();
 	private RegisterPage registerPage = new RegisterPage();
 	private EmailSystemPage emailSystemPage = new EmailSystemPage();
-	SoftAssert softAssert = new SoftAssert();
 }

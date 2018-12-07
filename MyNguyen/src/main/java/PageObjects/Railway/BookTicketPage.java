@@ -1,9 +1,12 @@
 package PageObjects.Railway;
 
-import java.util.logging.Logger;
+import java.util.List;
 
 import org.openqa.selenium.By;
+
 import Common.Common.Element;
+import Common.Common.FileReaderManager;
+import Common.Constant.Constant.PageName;
 import DataObjects.Ticket;
 
 public class BookTicketPage extends GeneralPage {
@@ -16,7 +19,6 @@ public class BookTicketPage extends GeneralPage {
 	private By btnBookTicket = By.xpath("//input[@value='Book ticket']");
 	private String lblBookedTicketColumn = "//table//td[count(//th[text()='%s']/preceding-sibling::th)+1]";
 	private String lblSelectedValue = "//select[@name='%s']/option[@selected='selected']";
-	private String btnCancel = "//table[@class='MyTable']//tr[td[2][text()='%s']][td[3][text()='%s']][td[4][text()='%s']][td[5][text()='%s']][td[9][text()='%s']]//input[@value='Cancel']";
 
 	public void bookTicket(Ticket ticket) {
 		Element.selectInList(cbbDepartDate, ticket.getDepartDate());
@@ -66,14 +68,13 @@ public class BookTicketPage extends GeneralPage {
 		return result;
 	}
 
-	public void cancelBookedTicket(Ticket ticket) {
-		String str = String.format(btnCancel, ticket.getDepartFrom(), ticket.getDepartArrive(), ticket.getTypeSeat(),
-				ticket.getDepartDate(), String.valueOf(ticket.getTicketAmount()));
-		Element.click(By.xpath(str));
+	public void bookMutilpleTicket() {
+		List<Ticket> ticketList = FileReaderManager.getInstance().getJsonReader().getTicketInfo();
 
+		for (int i = 0; i < ticketList.size(); i++) {
+			gotoPage(PageName.BOOKTICKET);
+			bookTicket(ticketList.get(i));
+		}
 	}
 
-	public void cancelBookedTicket(Ticket ticket, int times) {
-
-	}
 }

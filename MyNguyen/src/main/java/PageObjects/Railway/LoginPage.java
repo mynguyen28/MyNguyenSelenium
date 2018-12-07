@@ -31,6 +31,5 @@ public class LoginPage extends GeneralPage {
 
 	public void gotoForgotPasswordPage() {
 		Element.click(lnkForgotPassword);
-		//wait for page load
 	}
 }

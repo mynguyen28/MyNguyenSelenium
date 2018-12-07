@@ -1,5 +1,7 @@
 package Common.Common;
 
+import java.io.UnsupportedEncodingException;
+
 import DataObjects.JsonDataReader;
 
 public class FileReaderManager {
@@ -18,9 +20,14 @@ public class FileReaderManager {
 	public FileReaderConfig getConfigReader() {
 		return (configFileReader == null) ? new FileReaderConfig() : configFileReader;
 	}
-	
-	public JsonDataReader getJsonReader(){
-		 return (jsonDataReader == null) ? new JsonDataReader() : jsonDataReader;
-		 }
 
+	public JsonDataReader getJsonReader() {
+		try {
+			return (jsonDataReader == null) ? new JsonDataReader() : jsonDataReader;
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
 }

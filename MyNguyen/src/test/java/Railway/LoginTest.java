@@ -75,12 +75,12 @@ public class LoginTest extends BasicTest {
 
 	@Test(description = "TC08 - User can't login with an account hasn't been activated")
 	public void TC08() throws InterruptedException {
-		//pre-conditon: Create a new account but do not activate it
+		// pre-conditon: Create a new account but do not activate it
 		loginPage.gotoPage(PageName.REGISTER);
 		String email = Utilities.generateEmail();
 		registerPage.register(email, Constant.PASSWORD);
 
-		//Testcase:
+		// Testcase:
 		registerPage.gotoPage(PageName.LOGIN);
 		loginPage.login(email, Constant.PASSWORD);
 		assertEquals(loginPage.getLoginError(), Message.INVALID_LOGIN_MESSAGE);

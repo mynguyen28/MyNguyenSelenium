@@ -1,7 +1,44 @@
-{
-	"departDate": "12/11/2018",
-	"departFrom": "Sài Gòn",
-	"departArrive": "Nha Trang",
-	"typeSeat": "Soft bed with air conditioner",
-	"ticketAmount": "1"
-}
+[
+	{
+		"departDate": "12/11/2018",
+		"departFrom": "Sài Gòn",
+		"departArrive": "Nha Trang",
+		"typeSeat": "Soft bed with air conditioner",
+		"ticketAmount": "1"
+	},
+	{
+		"departDate": "12/12/2018",
+		"departFrom": "Huế",
+		"departArrive": "Nha Trang",
+		"typeSeat": "Soft bed",
+		"ticketAmount": "1"
+	},
+	{
+		"departDate": "12/15/2018",
+		"departFrom": "Nha Trang",
+		"departArrive": "Huế",
+		"typeSeat": "Hard bed",
+		"ticketAmount": "1"
+	},
+	{
+		"departDate": "12/13/2018",
+		"departFrom": "Đà Nẵng",
+		"departArrive": "Huế",
+		"typeSeat": "Hard bed",
+		"ticketAmount": "1"
+	},
+	{
+		"departDate": "12/17/2018",
+		"departFrom": "Huế",
+		"departArrive": "Đà Nẵng",
+		"typeSeat": "Soft bed with air conditioner",
+		"ticketAmount": "1"
+	},
+	{
+		"departDate": "12/19/2018",
+		"departFrom": "Nha Trang",
+		"departArrive": "Đà Nẵng",
+		"typeSeat": "Soft bed",
+		"ticketAmount": "1"
+	}
+]
