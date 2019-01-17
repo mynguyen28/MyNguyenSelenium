@@ -2,6 +2,7 @@ package Common.Constant;
 
 import org.openqa.selenium.WebDriver;
 
+import Common.Common.PropertiesHelper;
 import Common.Common.Utilities;
 
 public class Constant {
@@ -11,6 +12,7 @@ public class Constant {
 	public static final String PASSWORD = "123456789";
 	public static String MAIL_SYSTEM_URL = "https://www.mailinator.com/v3/index.jsp?zone=public&query=%s#/#inboxpane";
 	public static String NEW_PASSWORD = String.valueOf(Utilities.randomNumbers());
+	public static String DRIVER_PATH = PropertiesHelper.getInstance().getProperty("driverPath");
 
 	// TIME OUT
 	public static final int DEFAULT_TIME = 5;

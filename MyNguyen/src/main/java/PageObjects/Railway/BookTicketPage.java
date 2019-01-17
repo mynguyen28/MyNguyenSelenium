@@ -15,7 +15,7 @@ public class BookTicketPage extends GeneralPage {
 	private By cbbDepartFrom = By.xpath("//select[@name='DepartStation']");
 	private By cbbArriveAt = By.xpath("//select[@name='ArriveStation']");
 	private By cbbSeatType = By.xpath("//select[@name='SeatType']");
-	private By cbbTicketAmount = By.xpath("//select[@name='TicketAmount']");
+	private By cbbTicketAmount = By.name("TicketAmount");
 	private By btnBookTicket = By.xpath("//input[@value='Book ticket']");
 	private String lblBookedTicketColumn = "//table//td[count(//th[text()='%s']/preceding-sibling::th)+1]";
 	private String lblSelectedValue = "//select[@name='%s']/option[@selected='selected']";
